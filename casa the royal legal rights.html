@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Laws & Legal Compliance — Casa The Royal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 'inter': ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #030304; color: #fff; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444; }
+
+        .glass-nav {
+            background: rgba(3, 3, 4, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .gradient-title {
+            background: linear-gradient(135deg, #FFFFFF 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-subtitle {
+            background: linear-gradient(to right, #e2e8f0, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .law-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        .law-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .section-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+        }
+
+        .warning-card {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            border-radius: 16px;
+        }
+
+        .safe-card {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: 16px;
+        }
+
+        .info-card {
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            border-radius: 16px;
+        }
+
+        .tag {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .tag-danger { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+        .tag-safe { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+        .tag-info { background: rgba(99, 102, 241, 0.15); color: #a5b4fc; }
+        .tag-warning { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+
+        .section-number {
+            width: 36px; height: 36px;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: 600; color: #a5b4fc;
+            flex-shrink: 0;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent);
+        }
+
+        .go-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .go-back-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(-3px);
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(circle at center, rgba(99,102,241,0.15) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: blur(10px);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+        }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+        .delay-500 { transition-delay: 500ms; }
+
+        .toc-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: #94A3B8;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+        .toc-link:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.06);
+        }
+        .toc-link .toc-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #475569;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+        .toc-link:hover .toc-dot {
+            background: #6366f1;
+            box-shadow: 0 0 8px rgba(99,102,241,0.5);
+        }
+
+        .legal-ref {
+            font-size: 11px;
+            color: #64748b;
+            font-family: 'Inter', monospace;
+            border-left: 2px solid rgba(99,102,241,0.3);
+            padding-left: 10px;
+            margin-top: 8px;
+        }
+
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
+
+        .footer-link {
+            color: #64748b;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.15s ease;
+        }
+        .footer-link:hover { color: #fff; }
+
+        @media (max-width: 768px) {
+            .hero-glow { width: 300px; height: 250px; top: -50px; }
+        }
+    </style>
+</head>
+<body class="font-inter antialiased">
+
+    <!-- Navigation -->
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-50 h-16">
+        <div class="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
+            <a href="https://casatheroyaldevelopedbykskgames.netlify.app/" class="flex items-center gap-3 text-decoration-none">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(to top right, #6366f1, #a855f7);">
+                    <span class="iconify text-white text-sm" data-icon="mdi:crown"></span>
+                </div>
+                <span class="text-white font-medium text-sm tracking-tight">Casa The Royal</span>
+            </a>
+            <a href="https://casatheroyaldevelopedbykskgames.netlify.app/" class="go-back-btn">
+                <span class="iconify text-base" data-icon="mdi:arrow-left"></span>
+                Go Back
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
+        <div class="hero-glow"></div>
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <div class="reveal">
+                <span class="tag tag-info inline-block mb-6">Legal Compliance</span>
+            </div>
+            <h1 class="reveal delay-100 gradient-title text-3xl md:text-5xl font-medium tracking-tight leading-tight mb-6">
+                Government Laws &<br>Legal Disclosures
+            </h1>
+            <p class="reveal delay-200 gradient-subtitle text-base md:text-lg font-light leading-relaxed max-w-2xl mx-auto mb-8">
+                A comprehensive overview of Indian central and state laws governing the operation of Casa The Royal as a commercial short-term rental villa property.
+            </p>
+            <div class="reveal delay-300 flex items-center justify-center gap-3 text-xs text-slate-500">
+                <span class="iconify text-sm" data-icon="mdi:shield-check"></span>
+                <span>Last Updated: June 2025 &nbsp;•&nbsp; Applicable: Pan-India</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Table of Contents -->
+    <section class="max-w-4xl mx-auto px-6 pb-16">
+        <div class="reveal section-card p-6 md:p-8">
+            <h3 class="text-xs font-medium uppercase tracking-wider text-slate-500 mb-4 flex items-center gap-2">
+                <span class="iconify text-sm" data-icon="mdi:format-list-bulleted"></span>
+                Table of Contents
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
+                <a href="#gambling" class="toc-link"><span class="toc-dot"></span>Gambling & Gaming Laws</a>
+                <a href="#pga-s3" class="toc-link"><span class="toc-dot"></span>Section 3 — Common Gaming House</a>
+                <a href="#pga-s4" class="toc-link"><span class="toc-dot"></span>Section 4 — Presence Offense</a>
+                <a href="#pga-s12" class="toc-link"><span class="toc-dot"></span>Section 12 — Skill Exemption</a>
+                <a href="#pga-s13" class="toc-link"><span class="toc-dot"></span>Section 13 — Public Gaming</a>
+                <a href="#crucial" class="toc-link"><span class="toc-dot"></span>Crucial Legal Distinction</a>
+                <a href="#property" class="toc-link"><span class="toc-dot"></span>Property Operations Laws</a>
+                <a href="#guest" class="toc-link"><span class="toc-dot"></span>Guest Record-Keeping</a>
+                <a href="#noise" class="toc-link"><span class="toc-dot"></span>Noise & Nuisance Laws</a>
+                <a href="#tax" class="toc-link"><span class="toc-dot"></span>Tax Compliance</a>
+                <a href="#recommendations" class="toc-link"><span class="toc-dot"></span>Key Recommendations</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider max-w-5xl mx-auto"></div>
+
+    <!-- Section 1: Gambling Laws -->
+    <section id="gambling" class="max-w-4xl mx-auto px-6 py-16 md:py-24">
+        <div class="reveal flex items-center gap-4 mb-3">
+            <div class="section-number">1</div>
+            <span class="tag tag-danger">High Risk</span>
+        </div>
+        <h2 class="reveal delay-100 text-2xl md:text-3xl font-medium tracking-tight mb-4">Gambling & Gaming Laws</h2>
+        <p class="reveal delay-200 text-slate-400 text-sm md:text-base font-light leading-relaxed mb-8 max-w-3xl">
+            Operating a commercial Airbnb villa equipped with casino-style games (like poker or blackjack) involves strict legal boundaries under Indian central and state laws. Operating casino games in a private villa for commercial purposes or profit is <strong class="text-white font-medium">illegal in almost all parts of India</strong>, except in states/union territories with specialized licensing — <strong class="text-white font-medium">Goa, Sikkim, and Daman</strong>.
+        </p>
+
+        <!-- Warning Banner -->
+        <div class="reveal delay-200 warning-card p-5 md:p-6 mb-10 flex items-start gap-4">
+            <span class="iconify text-2xl text-red-400 mt-0.5 flex-shrink-0 animate-pulse-slow" data-icon="mdi:alert-octagon"></span>
+            <div>
+                <p class="text-red-300 text-sm font-medium mb-1">Critical Legal Warning</p>
+                <p class="text-red-400/80 text-xs md:text-sm font-light leading-relaxed">
+                    Casa The Royal does NOT operate, promote, or facilitate any form of real-money gambling, casino games, or wagering activities on its premises. Any such activity by guests is solely their personal responsibility and is neither endorsed nor permitted by the property management.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 3 -->
+        <div id="pga-s3" class="reveal law-card p-6 md:p-8 mb-6">
+            <div class="flex items-start gap-4 mb-4">
+                <span class="iconify text-xl text-indigo-400 mt-0.5" data-icon="mdi:gavel"></span>
+                <div>
+                    <h3 class="text-lg font-medium mb-1">Section 3 — Penalty for Owning/Keeping a Common Gaming House</h3>
+                    <p class="text-slate-500 text-xs">Public Gambling Act, 1867 & Maharashtra Prevention of Gambling Act, 1887</p>
+                </div>
+            </div>
+            <p class="text-slate-400 text-sm font-light leading-relaxed mb-3">
+                It is a criminal offense to open, keep, or use any house, room, or space as a <strong class="text-white font-medium">"common gaming house."</strong> If a property charges an entry fee, takes a commission or house rake, or charges extra rent for providing poker or blackjack tables, the premises is classified as a common gaming house.
+            </p>
+            <div class="legal-ref">
+                Public Gambling Act, 1867 — Section 3: "Whoever keeps or uses any house, room, tent, enclosure or place for the purpose of gaming… shall be punishable with imprisonment… and with a fine."
+            </div>
+        </div>
+
+        <!-- Section 4 -->
+        <div id="pga-s4" class="reveal delay-100 law-card p-6 md:p-8 mb-6">
+            <div class="flex items-start gap-4 mb-4">
+                <span class="iconify text-xl text-indigo-400 mt-0.5" data-icon="mdi:account-group"></span>
+                <div>
+                    <h3 class="text-lg font-medium mb-1">Section 4 — Penalty for Being Found in a Common Gaming House</h3>
+                    <p class="text-slate-500 text-xs">Public Gambling Act, 1867</p>
+                </div>
+            </div>
+            <p class="text-slate-400 text-sm font-light leading-relaxed mb-3">
+                Anyone found playing games of chance or present in such a premises for the purpose of gaming can be <strong class="text-white font-medium">arrested and fined.</strong> This applies to both the operator and the guests present on the premises.
+            </p>
+            <div class="legal-ref">
+                Public Gambling Act, 1867 — Section 4: "Whoever is found in any such house, room, tent, enclosure or place… shall be punishable with fine not exceeding one hundred rupees, or with imprisonment…"
+            </div>
+        </div>
+
+        <!-- Section 12 -->
+        <div id="pga-s12" class="reveal delay-200 law-card p-6 md:p-8 mb-6">
+            <div class="flex items-start gap-4 mb-4">
+                <span class="iconify text-xl text-indigo-400 mt-0.5" data-icon="mdi:brain"></span>
+                <div>
+                    <h3 class="text-lg font-medium mb-1">Section 12 — Games of Mere Skill Exemption</h3>
+                    <p class="text-slate-500 text-xs">Public Gambling Act, 1867</p>
+                </div>
+            </div>
+            <p class="text-slate-400 text-sm font-light leading-relaxed mb-3">
+                The law exempts games of <strong class="text-white font-medium">"mere skill."</strong> While courts have debated the classification of poker, <strong class="text-white font-medium">Blackjack is legally categorized as a game of chance</strong> (house-edge casino game) across all Indian jurisdictions. Running live Blackjack with money or chips on the premises directly violates Section 3.
+            </p>
+            <div class="legal-ref">
+                Public Gambling Act, 1867 — Section 12: "Nothing in this Act shall apply to any game of mere skill wherever played."
+            </div>
+        </div>
+
+        <!-- Section 13 -->
+        <div id="pga-s13" class="reveal delay-300 law-card p-6 md:p-8 mb-6">
+            <div class="flex items-start gap-4 mb-4">
+                <span class="iconify text-xl text-indigo-400 mt-0.5" data-icon="mdi:account-alert"></span>
+                <div>
+                    <h3 class="text-lg font-medium mb-1">Section 13 — Public Gambling / Playing in Public Places</h3>
+                    <p class="text-slate-500 text-xs">Public Gambling Act, 1867</p>
+                </div>
+            </div>
+            <p class="text-slate-400 text-sm font-light leading-relaxed mb-3">
+                If the villa host hosts public events or advertises <strong class="text-white font-medium">"casino nights" open to the general public</strong>, it constitutes illegal public gaming under this section, regardless of whether the venue is technically a private property.
+            </p>
+            <div class="legal-ref">
+                Public Gambling Act, 1867 — Section 13: Prohibits gaming in any public place, street, or thoroughfare.
+            </div>
+        </div>
+
+        <!-- Crucial Distinction -->
+        <div id="crucial" class="reveal delay-400 mt-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="warning-card p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="iconify text-lg text-red-400" data-icon="mdi:close-circle"></span>
+                        <span class="text-red-300 text-xs font-semibold uppercase tracking-wider">Illegal</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-red-400/80 font-light leading-relaxed">
+                        <li class="flex items-start gap-2">
+                            <span class="iconify text-xs mt-1.5 flex-shrink-0" data-icon="mdi:close"></span>
+                            Offering professional poker/blackjack setups
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="iconify text-xs mt-1.5 flex-shrink-0" data-icon="mdi:close"></span>
+                            Providing physical casino tables for wagering
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="iconify text-xs mt-1.5 flex-shrink-0" data-icon="mdi:close"></span>
+                            Charging money for gambling access in an Airbnb
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="iconify text-xs mt-1.5 flex-shrink-0" data-icon="mdi:close"></span>
+                            Advertising "casino nights" to the public
+                        </li>
+                    </ul>
+                </div>
+                <div class="safe-card p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="iconify text-lg text-emerald-400" data-icon="mdi:check-circle"></span>
+                        <span class="text-emerald-300 text-xs font-semibold uppercase tracking-wider">Permitted</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-emerald-400/80 font-light leading-relaxed">
+                        <li class="flex items-start gap-2">
+                            <span class="iconify text-xs mt-1.5 flex-shrink-0" data-icon="mdi:check"></span>
+                            Friends playing casual board games
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="iconify text-xs mt-1.5 flex-shrink-0" data-icon="mdi:check"></span>
+                            No real-money wagering involved
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="iconify text-xs mt-1.5 flex-shrink-0" data-icon="mdi:check"></span>
+                            No house commissions or entry fees for games
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="iconify text-xs mt-1.5 flex-shrink-0" data-icon="mdi:check"></span>
+                            Standard board games (Chess, Monopoly, Carrom)
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <p class="text-slate-500 text-xs font-light leading-relaxed mt-4 max-w-2xl">
+                <strong class="text-slate-400 font-medium">Crucial Distinction:</strong> Friends playing casual board games without real-money wagering or house commissions is generally ignored by authorities, but offering professional poker/blackjack setups, physical tables, or charging money for gambling access in an Airbnb is explicitly illegal.
+            </p>
+        </div>
+    </section>
+
+    <div class="divider max-w-5xl mx-auto"></div>
+
+    <!-- Section 2: Property Operations -->
+    <section id="property" class="max-w-4xl mx-auto px-6 py-16 md:py-24">
+        <div class="reveal flex items-center gap-4 mb-3">
+            <div class="section-number">2</div>
+            <span class="tag tag-warning">Compliance Required</span>
+        </div>
+        <h2 class="reveal delay-100 text-2xl md:text-3xl font-medium tracking-tight mb-4">Airbnb Villa & Property Operations Laws</h2>
+        <p class="reveal delay-200 text-slate-400 text-sm md:text-base font-light leading-relaxed mb-10 max-w-3xl">
+            Running a short-term rental villa requires compliance with commercial, local municipal, and safety regulations as outlined below.
+        </p>
+
+        <!-- 2.1 Registration -->
+        <div class="reveal law-card p-6 md:p-8 mb-6">
+            <div class="flex items-start gap-4 mb-4">
+                <span class="iconify text-xl text-amber-400 mt-0.5" data-icon="mdi:file-document-edit"></span>
+                <div>
+                    <h3 class="text-lg font-medium mb-1">Registration & Local Licenses</h3>
+                    <p class="text-slate-500 text-xs">Mandatory for Commercial Villa Operations</p>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <div class="info-card p-4">
+                    <p class="text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-2">State Tourism / Homestay Registration</p>
+                    <p class="text-slate-400 text-sm font-light leading-relaxed">
+                        Many state governments (e.g., Maharashtra Tourism Development Corporation / MTDC Homestay Scheme) require <strong class="text-white font-medium">mandatory registration</strong> of villas and homestays operating as short-term rentals.
+                    </p>
+                </div>
+                <div class="info-card p-4">
+                    <p class="text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-2">Local Municipal Corporation / Shops & Establishments Act</p>
+                    <p class="text-slate-400 text-sm font-light leading-relaxed">
+                        Operating a villa as a commercial business without a <strong class="text-white font-medium">Trade License</strong> or <strong class="text-white font-medium">Commercial Building NOC</strong> can lead to penalties under local municipal acts.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2.2 Guest Records -->
+        <div id="guest" class="reveal delay-100 law-card p-6 md:p-8 mb-6">
+            <div class="flex items-start gap-4 mb-4">
+                <span class="iconify text-xl text-amber-400 mt-0.5" data-icon="mdi:badge-account-horizontal"></span>
+                <div>
+                    <h3 class="text-lg font-medium mb-1">Guest Record-Keeping & Public Safety</h3>
+                    <p class="text-slate-500 text-xs">Mandatory Identity Verification</p>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <div class="info-card p-4">
+                    <p class="text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-2">Registration of Foreigners Rules, 1992 (Form C)</p>
+                    <p class="text-slate-400 text-sm font-light leading-relaxed">
+                        Under <strong class="text-white font-medium">Section 5 of the Registration of Foreigners Act, 1939</strong>, hosts MUST record foreign national details and submit <strong class="text-white font-medium">Form C</strong> on the FRRO portal within <strong class="text-white font-medium">24 hours</strong> of check-in.
+                    </p>
+                </div>
+                <div class="info-card p-4">
+                    <p class="text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-2">Local Police Verification (Form B)</p>
+                    <p class="text-slate-400 text-sm font-light leading-relaxed">
+                        Hosts must maintain a guest register (<strong class="text-white font-medium">Form B</strong>) recording Government ID proofs (Aadhaar, Passport) for all Indian nationals. Failure to comply violates <strong class="text-white font-medium">Section 188 of the Indian Penal Code / Bharatiya Nyaya Sanhita (BNS)</strong> for disobeying a public servant's order.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2.3 Noise -->
+        <div id="noise" class="reveal delay-200 law-card p-6 md:p-8 mb-6">
+            <div class="flex items-start gap-4 mb-4">
+                <span class="iconify text-xl text-amber-400 mt-0.5" data-icon="mdi:volume-off"></span>
+                <div>
+                    <h3 class="text-lg font-medium mb-1">Noise & Public Nuisance Laws</h3>
+                    <p class="text-slate-500 text-xs">Noise Pollution Rules, 2000</p>
+                </div>
+            </div>
+            <p class="text-slate-400 text-sm font-light leading-relaxed mb-3">
+                <strong class="text-white font-medium">Rule 5</strong> of the Noise Pollution (Regulation and Control) Rules, 2000 restricts high-decibel music and loudspeakers <strong class="text-white font-medium">after 10:00 PM.</strong> Violations invite police action and property sealings under <strong class="text-white font-medium">Section 268/290 of the IPC</strong> (Public Nuisance).
+            </p>
+            <div class="legal-ref">
+                Noise Pollution (Regulation and Control) Rules, 2000 — Rule 5: Restricts use of loudspeakers/public address systems after 10:00 PM except in closed premises for specific purposes.
+            </div>
+        </div>
+
+        <!-- 2.4 Tax -->
+        <div id="tax" class="reveal delay-300 law-card p-6 md:p-8 mb-6">
+            <div class="flex items-start gap-4 mb-4">
+                <span class="iconify text-xl text-amber-400 mt-0.5" data-icon="mdi:receipt-text"></span>
+                <div>
+                    <h3 class="text-lg font-medium mb-1">Tax Compliance</h3>
+                    <p class="text-slate-500 text-xs">Income Tax & GST Obligations</p>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <div class="info-card p-4">
+                    <p class="text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-2">Income Tax Act, 1961 — Section 194-O</p>
+                    <p class="text-slate-400 text-sm font-light leading-relaxed">
+                        Airbnb deducts <strong class="text-white font-medium">TCS/TDS</strong> on host earnings. All income from short-term rental operations must be declared under applicable income tax provisions.
+                    </p>
+                </div>
+                <div class="info-card p-4">
+                    <p class="text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-2">Central GST Act, 2017</p>
+                    <p class="text-slate-400 text-sm font-light leading-relaxed">
+                        If total annual business turnover crosses <strong class="text-white font-medium">₹20 Lakhs</strong> (<strong class="text-white font-medium">₹10 Lakhs</strong> in special category states), <strong class="text-white font-medium">mandatory GST registration</strong> and tax remittance apply.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider max-w-5xl mx-auto"></div>
+
+    <!-- Section 3: Key Recommendations -->
+    <section id="recommendations" class="max-w-4xl mx-auto px-6 py-16 md:py-24">
+        <div class="reveal flex items-center gap-4 mb-3">
+            <div class="section-number">3</div>
+            <span class="tag tag-safe">Action Items</span>
+        </div>
+        <h2 class="reveal delay-100 text-2xl md:text-3xl font-medium tracking-tight mb-10">Key Recommendations</h2>
+
+        <div class="space-y-4">
+            <!-- Rec 1 -->
+            <div class="reveal safe-card p-5 md:p-6 flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center flex-shrink-0">
+                    <span class="iconify text-xl text-emerald-400" data-icon="mdi:casino"></span>
+                </div>
+                <div>
+                    <h3 class="text-sm font-medium mb-1">Remove Real-Money Casino Setups</h3>
+                    <p class="text-slate-400 text-xs md:text-sm font-light leading-relaxed">
+                        Do not market, charge fees for, or provide casino tables (especially Blackjack or real-money Poker) at the property to prevent severe criminal liability under the Public Gambling Act, 1867.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Rec 2 -->
+            <div class="reveal delay-100 safe-card p-5 md:p-6 flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center flex-shrink-0">
+                    <span class="iconify text-xl text-emerald-400" data-icon="mdi:chess-knight"></span>
+                </div>
+                <div>
+                    <h3 class="text-sm font-medium mb-1">Stick to Casual Board Games</h3>
+                    <p class="text-slate-400 text-xs md:text-sm font-light leading-relaxed">
+                        Provide standard board games (Chess, Monopoly, Carrom, Ludo) that carry zero legal risk and enhance the guest experience without any regulatory concerns.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Rec 3 -->
+            <div class="reveal delay-200 safe-card p-5 md:p-6 flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center flex-shrink-0">
+                    <span class="iconify text-xl text-emerald-400" data-icon="mdi:file-certificate"></span>
+                </div>
+                <div>
+                    <h3 class="text-sm font-medium mb-1">Register the Property</h3>
+                    <p class="text-slate-400 text-xs md:text-sm font-light leading-relaxed">
+                        Complete state tourism homestay registration, obtain local panchayat/municipal approvals, and ensure all commercial operating licenses are in place and renewed on time.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Rec 4 -->
+            <div class="reveal delay-300 safe-card p-5 md:p-6 flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center flex-shrink-0">
+                    <span class="iconify text-xl text-emerald-400" data-icon="mdi:card-account-details"></span>
+                </div>
+                <div>
+                    <h3 class="text-sm font-medium mb-1">Verify All Guest IDs</h3>
+                    <p class="text-slate-400 text-xs md:text-sm font-light leading-relaxed">
+                        Maintain a strict guest register (Form B for Indians, Form C for foreigners submitted on FRRO portal within 24 hours) at all times. This is non-negotiable legal compliance.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Rec 5 -->
+            <div class="reveal delay-400 safe-card p-5 md:p-6 flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center flex-shrink-0">
+                    <span class="iconify text-xl text-emerald-400" data-icon="mdi:volume-mute"></span>
+                </div>
+                <div>
+                    <h3 class="text-sm font-medium mb-1">Enforce Noise Curfew at 10 PM</h3>
+                    <p class="text-slate-400 text-xs md:text-sm font-light leading-relaxed">
+                        Communicate the 10:00 PM noise restriction to all guests at check-in. Include it in the house rules on the Airbnb listing to avoid police complaints and potential property sealing.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider max-w-5xl mx-auto"></div>
+
+    <!-- Disclaimer -->
+    <section class="max-w-4xl mx-auto px-6 py-16">
+        <div class="reveal section-card p-6 md:p-8">
+            <div class="flex items-start gap-3 mb-4">
+                <span class="iconify text-lg text-slate-500 mt-0.5" data-icon="mdi:information-outline"></span>
+                <h3 class="text-sm font-medium text-slate-400">Legal Disclaimer</h3>
+            </div>
+            <p class="text-slate-500 text-xs font-light leading-relaxed">
+                The information provided on this page is for general informational purposes only and does not constitute legal advice. Laws and regulations are subject to change, and their application may vary based on specific circumstances and jurisdictions. Casa The Royal strongly recommends consulting a qualified legal professional for advice tailored to your specific situation. Casa The Royal, its management, and affiliates shall not be held liable for any actions taken or not taken based on the content of this page. All guests are expected to comply with applicable local, state, and central laws during their stay.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 py-12">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-7 h-7 rounded-lg flex items-center justify-center" style="background: linear-gradient(to top right, #6366f1, #a855f7);">
+                        <span class="iconify text-white text-xs" data-icon="mdi:crown"></span>
+                    </div>
+                    <span class="text-slate-500 text-xs">© 2025 Casa The Royal. All rights reserved.</span>
+                </div>
+                <div class="flex items-center gap-6">
+                    <a href="https://casatheroyaldevelopedbykskgames.netlify.app/" class="footer-link">Home</a>
+                    <a href="#gambling" class="footer-link">Gambling Laws</a>
+                    <a href="#property" class="footer-link">Property Laws</a>
+                    <a href="#recommendations" class="footer-link">Recommendations</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+        class="fixed bottom-6 right-6 w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-all duration-200 opacity-0 pointer-events-none z-50"
+        style="transition: opacity 0.3s ease, background 0.15s ease, color 0.15s ease;">
+        <span class="iconify text-lg" data-icon="mdi:chevron-up"></span>
+    </button>
+
+    <script>
+        // Scroll Reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => observer.observe(el));
+
+        // Scroll to Top Button
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollTopBtn.style.opacity = '1';
+                scrollTopBtn.style.pointerEvents = 'auto';
+            } else {
+                scrollTopBtn.style.opacity = '0';
+                scrollTopBtn.style.pointerEvents = 'none';
+            }
+        });
+
+        // Smooth scroll for TOC links
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
